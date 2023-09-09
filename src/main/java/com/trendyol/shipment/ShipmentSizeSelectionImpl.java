@@ -38,15 +38,11 @@ public class ShipmentSizeSelectionImpl implements ShipmentSizeSelection {
     }
 
     private ShipmentSize findAncestorShipmentSize(ShipmentSize shipmentSize) {
-        ShipmentSize[] shipmentSizeList = ShipmentSize.values();
+        List<ShipmentSize> shipmentSizeList = List.of(ShipmentSize.values());
 
-        for (int i = 0; i < shipmentSizeList.length - ANCESTOR_INDEX; i++) {
-            if (shipmentSizeList[i] == shipmentSize) {
-                int indexOfAncestor = i + ANCESTOR_INDEX;
-                return shipmentSizeList[indexOfAncestor];
-            }
-        }
+        int shipmentSizeIndex = shipmentSizeList.indexOf(shipmentSize);
+        int calculatedShipmentSizeIndex = Math.min(shipmentSizeIndex + ANCESTOR_INDEX, shipmentSizeList.size() - 1);
 
-        return shipmentSizeList[shipmentSizeList.length - 1];
+        return shipmentSizeList.get(calculatedShipmentSizeIndex);
     }
 }
