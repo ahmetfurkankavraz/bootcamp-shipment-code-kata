@@ -1,6 +1,5 @@
 package com.trendyol.shipment;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static com.trendyol.shipment.ShipmentSizeAncestor.findAncestorShipmentSize;
@@ -14,25 +13,24 @@ public class Basket {
 
     public ShipmentSize getShipmentSize() {
 
-        ShipmentSize selectedShipmentSize = null;
+        ShipmentSize calculatedShipmentSize = null;
 
         for (var shipmentSize : ShipmentSize.values()) {
-            long shipmentSizeCount = products.stream().filter(
-                    (product -> product.getSize() == shipmentSize)).count();
+            long foundedShipmentSizeCountInProductList = getProducts().stream()
+                    .filter((product -> product.getSize() == shipmentSize)).count();
 
-            if (shipmentSizeCount == BASKET_EMPTY_COUNT)
+            if (foundedShipmentSizeCountInProductList == BASKET_EMPTY_COUNT)
                 continue;
 
-            selectedShipmentSize = shipmentSize;
+            calculatedShipmentSize = shipmentSize;
 
-            if (shipmentSizeCount < BASKET_THRESHOLD_COUNT)
+            if (foundedShipmentSizeCountInProductList < BASKET_THRESHOLD_COUNT)
                 continue;
 
-            selectedShipmentSize = findAncestorShipmentSize(selectedShipmentSize);
-            return selectedShipmentSize;
+            return findAncestorShipmentSize(calculatedShipmentSize);
         }
 
-        return selectedShipmentSize;
+        return calculatedShipmentSize;
     }
 
     public List<Product> getProducts() {

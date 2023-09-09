@@ -1,15 +1,19 @@
 package com.trendyol.shipment;
 
-class ShipmentSizeAncestor {
-    static ShipmentSize findAncestorShipmentSize(ShipmentSize shipmentSize){
-        switch (shipmentSize) {
-            case SMALL:
-                return ShipmentSize.MEDIUM;
-            case MEDIUM:
-                return ShipmentSize.LARGE;
-            default:
-                return ShipmentSize.X_LARGE;
+
+public class ShipmentSizeAncestor {
+
+    public static final int ANCESTOR_INDEX = 1;
+
+    public static ShipmentSize findAncestorShipmentSize(ShipmentSize shipmentSize) {
+        ShipmentSize[] shipmentSizeList = ShipmentSize.values();
+
+        for (int i = 0; i < shipmentSizeList.length - ANCESTOR_INDEX; i++) {
+            if (shipmentSizeList[i] == shipmentSize) {
+                return shipmentSizeList[i + ANCESTOR_INDEX];
+            }
         }
+
+        return shipmentSizeList[shipmentSizeList.length - 1];
     }
 }
-
