@@ -3,6 +3,8 @@ package com.trendyol.shipment;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.trendyol.shipment.ShipmentSizeAncestor.findAncestorShipmentSize;
+
 public class Basket {
 
     public static final int BASKET_THRESHOLD_COUNT = 3;
@@ -26,17 +28,7 @@ public class Basket {
             if (shipmentSizeCount < BASKET_THRESHOLD_COUNT)
                 continue;
 
-            switch (shipmentSize) {
-                case SMALL:
-                    selectedShipmentSize = ShipmentSize.MEDIUM;
-                    break;
-                case MEDIUM:
-                    selectedShipmentSize = ShipmentSize.LARGE;
-                    break;
-                case LARGE:
-                    selectedShipmentSize = ShipmentSize.X_LARGE;
-                    break;
-            }
+            selectedShipmentSize = findAncestorShipmentSize(selectedShipmentSize);
             return selectedShipmentSize;
         }
 
