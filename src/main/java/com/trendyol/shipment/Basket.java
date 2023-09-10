@@ -8,7 +8,7 @@ public class Basket {
 
     public ShipmentSize getShipmentSize() {
         return ShipmentSizeSelectionFactory
-                .getShipmentSizeSelection(getProducts())
+                .getShipmentSizeSelection(this)
                 .calculateShipmentSize();
     }
 

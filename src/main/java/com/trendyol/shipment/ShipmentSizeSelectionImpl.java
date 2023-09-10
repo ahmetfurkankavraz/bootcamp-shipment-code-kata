@@ -10,8 +10,8 @@ public class ShipmentSizeSelectionImpl implements ShipmentSizeSelection {
 
     private final List<Product> productList;
 
-    ShipmentSizeSelectionImpl(List<Product> productList) {
-        this.productList = productList;
+    ShipmentSizeSelectionImpl(Basket basket) {
+        this.productList = basket.getProducts();
     }
 
     public ShipmentSize calculateShipmentSize() {
